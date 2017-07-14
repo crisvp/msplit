@@ -1,7 +1,9 @@
 # vim: noet
 
-VERSION = 7372
 INSTALL_DIR=/usr/local/
+
+# just bump this to some arbitrary number that's > current number
+VERSION = 7372
 
 CC=gcc
 CFLAGS=-I./include -DVERSION=$(VERSION) -Wall
