@@ -26,6 +26,7 @@ test:
 
 install: all
 	install -m 0755 src/$(TARGET) $(INSTALL_DIR)/bin/$(TARGET)
+	install -m 0644 man/msplit.1 $(INSTALL_DIR)/share/man/man1/msplit.1
 
 clean:
 	rm -f src/*.o src/$(TARGET) test/test test/*.o

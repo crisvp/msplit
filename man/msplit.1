@@ -1,0 +1,59 @@
+.TH MSPLIT 1
+.SH NAME
+msplit \- Parse files containing multi-word strings.
+.SH SYNOPSIS
+.B msplit
+[\fIOPTION...\fR] [\fIFILE...\fR]
+.SH DESCRIPTION
+.PP
+This tool parses a text file or standard input and outputs 'words' delimited
+by a special character. Unlike \fBcut\fR, 'words' may be multi-word strings.
+.PP
+\'words\' may be terminated by spaces, or be delimited by a set of ([{<\`'" to
+start the string, and terminated by )]}>''".
+.PP
+See the \fIEXAMPLES\fR section below for some examples.
+.SH OPTIONS
+.TP
+.BR \-h ", " \-\-help
+Show brief usage and version information.
+.TP
+.BR \-d ", " \-\-delimiter =\fIDELIMITER\fR
+Default: ".  Set the word-delimiter. Each 'word' will be terminated by the
+string \fIDELIMITER\fR.
+.TP
+.BR \-l ", " \-\-line-delimiter =\fILINEDELIMITER\fR
+Default: \\n (newline).  Set the line-delimiter. Each line will be terminated
+by the string \fILINEDELIMITER\fR.
+.PP
+\fB\-d\fR and \fB-l\fR accept \\r, \\n, \\t, or \\ to mean carriage return,
+newline, tab, or backslash respectively. Ensure proper shell-escaping is
+used when passing parameters.
+.SH EXAMPLES
+.PP
+Given the following input string: 'hi mom' {i can see} (my house) <from here!>
+.PP
+msplit will output the following 'words': hi mom, i can see, my house,
+from here!, separated by the \fIDELIMITER\fR character. This makes it most useful
+in conjuction with a tool like cut; e.g.:
+.PP
+.nf
+.RS
+$ echo "'hi mom' {i can see} (my house) <from here!>" | msplit | cut -f3 -d\\"
+my house
+.RE
+.fi
+.PP
+Or, a more practical example, to get the requests from an nginx logs file you
+might use something like:
+
+.nf
+.RS
+msplit /var/log/nginx/acccess.log |cut -f9 -d\"
+Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/98 Safari/537.4 (StatusCake)
+.RE
+.fi
+.SH AUTHOR
+msplit was written by Cris van Pelt, based on matchsplit code by Wessel Dankers.
+.SH LICENSE
+msplit is distributed under the terms of the MIT License.
