@@ -1,0 +1,16 @@
+Source: msplit
+Section: utils
+Priority: optional
+Maintainer: Cris van Pelt <cris@melkfl.es>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: https://github.com/crisvp/msplit
+#Vcs-Git: git://git@github.com:crisvp/msplit.git
+#Vcs-Browser: https://github.com/crisvp/msplit
+
+Package: msplit
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Parse files containing multi-word strings.
+ This tool parses a text file or standard input and outputs 'words' delimited
+ by a special character. Unlike cut, 'words' may be multi-word strings.
