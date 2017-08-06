@@ -3,7 +3,7 @@
 INSTALL_DIR=/usr/local/
 
 # just bump this to some arbitrary number that's > current number
-VERSION = 7372
+VERSION = 7378
 
 CC=gcc
 CFLAGS=-I./include -DVERSION=$(VERSION) -Wall
