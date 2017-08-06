@@ -1,4 +1,4 @@
-# vim: noet
+# vim: noet:
 
 INSTALL_DIR=/usr/local/
 
@@ -11,7 +11,7 @@ CFLAGS=-I./include -DVERSION=$(VERSION) -Wall
 TARGET = msplit
 export
 
-.PHONY: src include
+.PHONY: src include test
 
 all: include src
 
@@ -21,8 +21,11 @@ src:
 include:
 	$(MAKE) -C include
 
+test:
+	$(MAKE) -C test
+
 install: all
 	install -m 0755 src/$(TARGET) $(INSTALL_DIR)/bin/$(TARGET)
 
 clean:
-	rm -f src/*.o src/$(TARGET)
+	rm -f src/*.o src/$(TARGET) test/test test/*.o
