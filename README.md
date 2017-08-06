@@ -47,4 +47,4 @@ close = ")]}>''\"";
 
 ## License
 
-Distributed under the terms of the MILF General Software License.
+Distributed under the terms of the MIT License (see the LICENSE file)

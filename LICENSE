@@ -1,16 +1,21 @@
-		MAKE IT LESS FAIL 	GENERAL SOFTWARE LICENSE
+The MIT License
 
-					Version 9.3
-		Authored by #toktok, April 27, 2010
+Copyright (c) 2017 Cris van Pelt
 
-1.	You are hereby authorized to distribute, redistribute, sell, copy,
-	lease, forge, imitate, impersonate, infringe and fondle the Work.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-2.	Copies of the Work may be freely modified, remodified, patched,
-	hacked, disassembled, reassembled, illustrated and defenestrated.
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 
-3.	Source code for the Work may be released into the wild, held captive,
-	bred freely, used for cosmetics testing and marinated.
-
-4.	No warranties are warranted unless specific warrants are issued,
-	dead or alive.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
