@@ -12,13 +12,13 @@ Edit the Makefile if you need to and then just run `make install`.
 
 A less practical one:
 ```
-echo "'hi mom' {i can see} (my house) <from here!>" | msplit -f -
+echo "'hi mom' {i can see} (my house) <from here!>" | msplit
 hi mom"i can see"my house"from here!"
 ```
 
 A practical one:
 ```
-msplit -f /var/log/apache.log | cut -d\" -f6 | head -2
+msplit /var/log/apache.log | cut -d\" -f6 | head -2
 GET /SRID/FUNX/RBX/JSON HTTP/1.1
 GET /SRID/FUNX/RBX/JSON HTTP/1.1
 ```
@@ -36,8 +36,6 @@ close = ")]}>''\"";
 
 * Make `matchsplit()` not destroy its input.
 * Stick `matchsplit()` in a library.
-* Don't require a -f, just use extra arguments.
-* Write man-pages, I guess.
 
 ## Credits
 
