@@ -16,11 +16,10 @@
 void
 show_help(const char *exc)
 {
-    printf( "Usage: %s [-d DELIMITER] [-l LINEDELIMITER] [-f FILE]\n"
+    printf( "Usage: %s [-d DELIMITER] [-l LINEDELIMITER] [FILE1..FILEn]\n"
             "\n"
             "Usage:\n"
             "   -h, --help              Show this help output.\n"
-            "   -f, --file FILE         Read lines from FILE ('-' for stdin).\n"
             "   -d, --delimiter D       Use D as the delimiter (default: \").\n" 
             "   -l, --line-delimiter L  Use L as the line delimiter (default: newline).\n"
             "\n"
@@ -47,7 +46,7 @@ open_file(const char *fname) {
 int
 main(int argc, char **argv)
 {
-    FILE *input = stdin;
+    FILE *input[1024];
 
     char line[BUFSIZE];
     char *splitsies[BUFSIZE];
@@ -55,10 +54,9 @@ main(int argc, char **argv)
     char *line_delimiter = "\n";
 
     int option_index = 0;
-    int i, c;
+    int i, j, c;
 
     static struct option long_options[] = {
-        { "file", required_argument, 0, 'f' },
         { "delimiter", required_argument, 0, 'd' },
         { "line-delimiter", required_argument, 0, 'l' },
         { "help", no_argument, 0, 'h' },
@@ -66,20 +64,12 @@ main(int argc, char **argv)
     };
 
     while (1) {
-        c = getopt_long(argc, argv, "hl:d:f:", long_options, &option_index);
+        c = getopt_long(argc, argv, "hl:d:", long_options, &option_index);
         if (c == -1) {
             break;
         }
 
         switch (c) {
-            case 'f':
-                input = open_file(optarg);
-                if (input == NULL) {
-                    fprintf(stderr, "%s: %s: %s\n", argv[0], optarg,
-                        strerror(errno));
-                    exit(errno);
-                }
-                break;
             case 'd':
                 delimiter = delimiter_string(optarg);
                 if (!delimiter) {
@@ -99,27 +89,49 @@ main(int argc, char **argv)
                 show_help(argv[0]);
                 exit(EXIT_SUCCESS);
 
-            case '?':
+            default: /* '?' */
                 show_help(argv[0]);
                 exit(EXIT_FAILURE);
                 break;
-            default:
-                printf("fuck\n");
-                break;
         }
     }
 
-    while (fgets(line, BUFSIZE, input) != NULL) {
-        matchsplit(line, splitsies, BUFSIZE);
-        for (i = 0; splitsies[i]; i++) {
-            printf("%s%s", splitsies[i], delimiter);
+    input[0] = stdin;
+    input[1] = NULL;
+
+    if (optind <= argc) {
+        if (argc > 1023) {
+            fprintf(stderr, "%s: too many arguments\n", argv[0]);
+            exit(EXIT_FAILURE);
         }
-        printf("%s", line_delimiter);
+        for (i = optind; i < argc; i++) {
+            if (strncmp(argv[i], "-", 1) == 0) {
+                input[i] = stdin;
+                continue;
+            }
+            input[i - optind] = open_file(argv[i]);
+            if (input[i - optind] == NULL) {
+                fprintf(stderr, "%s: Could not open %s: %s\n", argv[0],
+                    argv[i], strerror(errno));
+                exit(EXIT_FAILURE);
+            }
+        }
+        input[i+1] = NULL;
     }
 
-    if (ferror(input)) {
-        fprintf(stderr, "%s: error reading input: %s", argv[0], strerror(errno));
-        exit(errno);
+    for (j = 0; input[j] != NULL; j++) {
+        while (fgets(line, BUFSIZE, input[0]) != NULL) {
+            matchsplit(line, splitsies, BUFSIZE);
+            for (i = 0; splitsies[i]; i++) {
+                printf("%s%s", splitsies[i], delimiter);
+            }
+            printf("%s", line_delimiter);
+        }
+
+        if (ferror(input[0])) {
+            fprintf(stderr, "%s: error reading input: %s", argv[0], strerror(errno));
+            exit(errno);
+        }
     }
 
     return 0;
