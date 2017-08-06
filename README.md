@@ -6,7 +6,8 @@ A small utility to parse files containing multi-word strings.
 
 All you need is a C compiler and GNU make. Tested on MacOS, but should run on anything.
 
-Edit the Makefile if you need to and then just run `make install`.
+Edit the Makefile if you need to and then just run `make install`. If you want to create
+a Debian package, run: `debuild -i -us -uc -b`
 
 ## Example
 
